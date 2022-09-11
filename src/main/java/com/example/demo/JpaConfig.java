@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
+@SuppressWarnings("rawtypes")
 public class JpaConfig {
 
 	@Bean(name = "h2DataSource")
     @Primary
 	public DataSource h2DataSource() {
-		@SuppressWarnings("rawtypes")
 		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
 		dataSourceBuilder.driverClassName("org.h2.Driver");
 		dataSourceBuilder.url("jdbc:h2:C:/Users/yoges/test");
