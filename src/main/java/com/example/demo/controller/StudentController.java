@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,8 @@ public class StudentController {
 
 //creating post mapping that post the student detail in the database
 	@PostMapping("/student")
-	private int saveStudent(@RequestBody Student student) {
-		studentService.saveOrUpdate(student);
-		return student.getId();
+	public Student saveStudent(@RequestBody Student student) {
+		return studentService.saveOrUpdate(student);
 	}
 
 //creating a get mapping that retrieves all the students detail from the database 
@@ -36,11 +36,17 @@ public class StudentController {
 	private Student getStudent(@PathVariable("id") int id) {
 		return studentService.getStudentById(id);
 	}
+	
+	@PutMapping("/student")
+	public Student updateStudent(@RequestBody Student student) {
+		return studentService.saveOrUpdate(student);
+	}
 
 //creating a delete mapping that deletes a specific student
 	@DeleteMapping("/student/{id}")
-	private void deleteStudent(@PathVariable("id") int id) {
+	private String deleteStudent(@PathVariable("id") int id) {
 		studentService.delete(id);
+		return "delete sucessfully!!";
 	}
 
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
-
 @Service
 public class StudentService {
 	
@@ -27,8 +26,8 @@ public class StudentService {
 		return studentRepository.findById(id).get();
 	}
 
-	public void saveOrUpdate(Student student) {
-		studentRepository.save(student);
+	public Student saveOrUpdate(Student student) {
+		return studentRepository.save(student);
 	}
 
 //deleting a specific record

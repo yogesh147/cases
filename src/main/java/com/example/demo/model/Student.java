@@ -3,15 +3,20 @@ package com.example.demo.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Builder;
 
 @Entity
+@Table(name = "student")
+@Builder
 //defining class name as Table name  
 public class Student {
 //mark id as primary key  
 	@Id
 //defining id as column name  
 	@Column
-	private int id;
+	private Integer id;
 //defining name as column name  
 	@Column
 	private String name;
@@ -66,5 +71,5 @@ public class Student {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }
