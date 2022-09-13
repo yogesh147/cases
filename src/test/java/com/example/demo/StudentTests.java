@@ -8,7 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Random;
 
-import org.junit.Before;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,15 +25,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.example.demo.controller.StudentController;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.StudentService;
 import com.example.demo.utility.AppUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK, classes={ CaseApplication.class })
@@ -51,20 +49,9 @@ public class StudentTests {
 	@MockBean
 	private StudentService studentService;
 	
-	@Autowired
-	private WebApplicationContext context;
-	
 	ObjectMapper objMapper = new ObjectMapper();
 	ObjectWriter objWritter = objMapper.writer();
 
-	@Before
-	public void setUp() {
-//		MockitoAnnotations.openMocks(this);
-//		mockMvc = MockMvcBuilders.standaloneSetup(studentController).build();
-//		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-//		this.mockMvc = webAppContextSetup(context).build();
-	}
-	
 	@Test
 	public void saveStudent() throws Exception {
 
@@ -84,15 +71,20 @@ public class StudentTests {
 
 		String content = objWritter.writeValueAsString(record);
 		
-		  MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student")
-		            .contentType(MediaType.APPLICATION_JSON)
-		            .accept(MediaType.APPLICATION_JSON)
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				    .post("/api/student")
+				    .characterEncoding("UTF-8")
+		            .contentType(MediaType.APPLICATION_JSON_VALUE)
+		            .accept(MediaType.APPLICATION_JSON_VALUE)
 		            .content(content);
-		  
-		  mockMvc.perform(mockRequest)
+	
+		 mockMvc.perform(mockRequest)
 			        .andExpect(status().isOk())
-//					.andExpect(jsonPath("$", notNullValue()))
-					.andExpect(jsonPath("name", is("JohnDoe")));
+					.andExpect(jsonPath("$", notNullValue()))
+//			        .andExpect(MockMvcResultMatchers.jsonPath("$.data.name").value("JohnDoe"))
+					.andExpect(jsonPath("$.name", is("JohnDoe")));
+		 
+		 
 		  
 		System.out.println("test case end for saving student ::");
 	}
