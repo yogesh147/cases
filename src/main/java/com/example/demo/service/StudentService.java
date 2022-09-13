@@ -14,23 +14,29 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 
-//getting all student records
+	public StudentService(StudentRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+
+//	getting all student records
 	public List<Student> getAllStudent() {
 		List<Student> students = new ArrayList<Student>();
 		studentRepository.findAll().forEach(student -> students.add(student));
 		return students;
 	}
 
-//getting a specific record
+//  getting a specific record
 	public Student getStudentById(int id) {
 		return studentRepository.findById(id).get();
 	}
-
+	
+//  updating a specific record
 	public Student saveOrUpdate(Student student) {
-		return studentRepository.save(student);
+		studentRepository.save(student);
+		return student ;
 	}
 
-//deleting a specific record
+//  deleting a specific record
 	public void delete(int id) {
 		studentRepository.deleteById(id);
 	}
