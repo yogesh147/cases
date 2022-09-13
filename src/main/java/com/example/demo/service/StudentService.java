@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 
@@ -37,7 +38,8 @@ public class StudentService {
 	}
 
 //  deleting a specific record
-	public void delete(int id) {
+	public String delete(int id) {
 		studentRepository.deleteById(id);
+		return "delete successfully!!";
 	}
 }

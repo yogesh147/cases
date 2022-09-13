@@ -24,34 +24,34 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-//creating post mapping that post the student detail in the database
+//  creating post mapping that post the student detail in the database
 	@PostMapping("/student")
 	public ResponseEntity<?> saveStudent(@RequestBody Student student) {
 		return new ResponseEntity<>(studentService.saveOrUpdate(student), HttpStatus.OK);
 	}
 
-//creating a get mapping that retrieves all the students detail from the database 
+//  getting a get mapping that retrieves all the students detail from the database 
 	@GetMapping("/student")
 	private List<Student> getAllStudent() {
 		return studentService.getAllStudent();
 	}
 
-//creating a get mapping that retrieves the detail of a specific student
+//  retrieves the detail of a specific student Id
 	@GetMapping("/student/{id}")
 	private Student getStudent(@PathVariable("id") int id) {
 		return studentService.getStudentById(id);
 	}
 	
+//  update the detail of a specific student
 	@PutMapping("/student")
 	public Student updateStudent(@RequestBody Student student) {
 		return studentService.saveOrUpdate(student);
 	}
 
-//creating a delete mapping that deletes a specific student
+//  delete mapping that deletes a specific student by Id
 	@DeleteMapping("/student/{id}")
 	private String deleteStudent(@PathVariable("id") int id) {
-		studentService.delete(id);
-		return "delete sucessfully!!";
+		return studentService.delete(id);
 	}
 
 }

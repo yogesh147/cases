@@ -3,8 +3,10 @@ package com.example.demo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -65,6 +67,39 @@ public class StudentTests {
 		assertEquals("Louis", studentList.get(2).getName());
 		
 		System.out.println("test case end for saving students ::");
+	}
+	
+	@Test
+    @DisplayName("Retrieve Student by Id")
+    public void getStudentById() {
+ 
+        Student record = Student.builder()
+				.id(123123)
+				.name("JohnDoe")
+				.age(38)
+				.email("john@gmail.com")
+				.build();
+ 
+        Mockito.when(studentRepository.findById(123123)).thenReturn(Optional.of(record));
+        
+        Student actualResponse = studentService.getStudentById(123123);
+		assertEquals(actualResponse.getId(), record.getId());
+		assertEquals(actualResponse.getName(), record.getName());
+    }
+	
+	@Test
+    @DisplayName("Delete Student by Id")
+	public void deleteStudentById() {
+
+		Student record = Student.builder().id(123123).name("JohnDoe").age(38).email("john@gmail.com").build();
+		Mockito.when(studentRepository.findById(123123)).thenReturn(Optional.of(record));
+		Student actualResponse = studentService.getStudentById(123123);
+		System.out.println("cutting test cases" + actualResponse.getId());
+		assertEquals(actualResponse.getId(), record.getId());
+		
+		Mockito.doNothing().when(studentRepository).deleteById(actualResponse.getId());
+		String onDeleteResponse = studentService.delete(actualResponse.getId());
+		assertEquals("delete successfully!!", onDeleteResponse);
 	}
 
 	@Test
