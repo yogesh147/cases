@@ -3,9 +3,8 @@ package com.example.demo;
 import javax.sql.DataSource;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 @SuppressWarnings("rawtypes")
 public class JpaConfig {
 
@@ -26,7 +25,7 @@ public class JpaConfig {
 				.create()
 				.username("root")
 				.password("123456")
-				.url("jdbc:mysql://localhost:3306/studentdb?createDatabaseIfNotExist=true")
+				.url("jdbc:mysql://localhost:3306/studentdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false")
 				.driverClassName("com.mysql.cj.jdbc.Driver")
 				.build();
 	}

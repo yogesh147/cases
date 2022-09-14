@@ -3,9 +3,11 @@ spring:
     url: jdbc:mysql://localhost:3306/employeemanagementdb?createDatabaseIfNotExist=true
     username: root
     password: 123456
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true  
     hibernate:
       ddl-auto: update
-    generate-ddl: false
+    generate-ddl: true
+    
+    

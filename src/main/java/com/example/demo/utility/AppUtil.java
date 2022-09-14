@@ -19,12 +19,17 @@ public class AppUtil {
 		return result.toString().trim();
 	}
 
-	public static String sendEmail() {
-		return "success";
+	public static String staticMessage() {
+		return "static method called";
 	}
 
 	@SuppressWarnings("unused")
-	private String receivedEmail() {
-		return "yes";
+	private String privateMessage() {
+		return "private method called";
 	}
+
+	public final String finalMessage() {
+		return "final method called";
+	}
+	  
 }
